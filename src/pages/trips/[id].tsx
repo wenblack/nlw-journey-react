@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export default function TripDetailsPage() {
   const router = useRouter();
-  const id = router.query.id;
+  const id = String(router.query.id);
 
   const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] =
     useState(false);
@@ -30,7 +30,7 @@ export default function TripDetailsPage() {
       <div
         className={`${inter.className} text-white bg-zinc-950 max-w-6xl px-6 py-10 mx-auto space-y-8 `}
       >
-        <DestinationAndDateHeader />
+        <DestinationAndDateHeader tripId={id} />
 
         <main className="flex gap-16 px-4">
           <div className="flex-1 space-y-6">
@@ -46,7 +46,7 @@ export default function TripDetailsPage() {
               </button>
             </div>
 
-            <Activities />
+            <Activities tripId={id} />
           </div>
 
           <div className="w-80 space-y-6">
@@ -54,13 +54,14 @@ export default function TripDetailsPage() {
 
             <div className="w-full h-px bg-zinc-800" />
 
-            <Guests />
+            <Guests tripId={id} />
           </div>
         </main>
 
         {isCreateActivityModalOpen && (
           <CreateActivityModal
             closeCreateActivityModal={closeCreateActivityModal}
+            tripId={id}
           />
         )}
       </div>
